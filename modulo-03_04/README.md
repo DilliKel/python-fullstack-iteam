@@ -51,11 +51,12 @@ Q01 = "B"   # ← sua resposta aqui
 ### 3. Suba para o GitHub
 
 ```bash
-git add alunos/seu_nome/
+git checkout -b aluno_mod0304
+git add aluno/respostas.py
 git commit -m "feat: respostas avaliação módulos 03 e 04 - seu_nome"
-git push origin main
+git push -u origin aluno_mod0304
 ```
-
+Abra um Pull Request no Git
 ---
 
 ## 📚 Conteúdo coberto
