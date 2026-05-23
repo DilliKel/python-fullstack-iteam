@@ -266,9 +266,24 @@ def ex10_jogo_adivinhacao():
     """
     import random
     numero_secreto = random.randint(1, 100)
-
-    # SUA SOLUÇÃO AQUI
-    pass
+    tentativas = 7
+    print("Bem-vindo ao Jogo de Adivinhação!")
+    print("Tente adivinhar o número entre 1 e 100. Você tem 7 tentativas.")     
+    input("Pressione Enter para começar...") # Pausa para o usuário se preparar
+    tentativa = int(input("Escolha um número entre 1 e 100: "))
+    while tentativas > 0:
+            if tentativa < numero_secreto:
+                print("O número é maior! Tente novamente.")
+            elif tentativa > numero_secreto:
+                print("O número é menor! Tente novamente.")
+            else:
+                print(f"Parabéns! Você adivinhou o número {numero_secreto}!")
+                break
+            tentativas -= 1
+            if tentativas > 0:
+                tentativa = int(input(f"Você tem {tentativas} tentativas restantes. Escolha outro número: "))
+            else:
+                print(f"Suas tentativas acabaram! O número secreto era {numero_secreto}.")
 
 
 # ==============================================================
@@ -282,8 +297,16 @@ def ex11_numero_primo():
     Trata ValueError e números negativos/zero.
     Otimização: verifica divisores somente até √n.
     """
-    # SUA SOLUÇÃO AQUI
-    pass
+    n = int(input("Digite um número inteiro positivo para verificar se é primo: "))
+    if n <= 1:
+        print("Números menores ou iguais a 1 não são primos.")
+        return
+    for i in range  (2, int(n**0.5) + 1):
+        if n % i == 0:
+            print(f"{n} não é primo. Divisível por {i}.")
+            break
+    else:
+        print(f"{n} é primo.")  
 
 
 # ==============================================================
@@ -301,8 +324,21 @@ def ex12_analisador_senha():
 
     Exibe relatório com ✅ ou ❌ para cada critério.
     """
-    # SUA SOLUÇÃO AQUI
-    pass
+    print("Analisador de Senha Forte")
+    print("Deve ter pelo menos 8 caracteres, 1 maiúscula, 1 minúscula, 1 dígito e 1 caractere especial (!@#$%^&*)")
+    senha = input("Digite a senha para análise: ")
+    tem_minuscula = any(c.islower() for c in senha)
+    tem_maiuscula = any(c.isupper() for c in senha) 
+    tem_digito = any(c.isdigit() for c in senha)
+    tem_especial = any(c in "!@#$%^&*" for c in senha)
+
+    print("\nRelatório de Segurança da Senha:")
+    print(f"✅ Mínimo 8 caracteres: {'Sim' if len(senha) >= 8 else 'Não'}")
+    print(f"✅ Pelo menos 1 maiúscula: {'Sim' if tem_maiuscula else 'Não'}")
+    print(f"✅ Pelo menos 1 minúscula: {'Sim' if tem_minuscula else 'Não'}")
+    print(f"✅ Pelo menos 1 dígito: {'Sim' if tem_digito else 'Não'}")
+    print(f"✅ Pelo menos 1 caractere especial: {'Sim' if tem_especial else 'Não'}")
+    print("\nSenha forte!" if all([len(senha) >= 8, tem_maiuscula, tem_minuscula, tem_digito, tem_especial]) else "Senha fraca! Considere melhorar os critérios não atendidos.")
 
 
 # ==============================================================
@@ -317,8 +353,19 @@ def ex13_caixa_eletronico():
     """
     cedulas = [200, 100, 50, 20, 10]
 
-    # SUA SOLUÇÃO AQUI
-    pass
+    valor = float(input("Digite o valor do saque (múltiplo de R$10, máximo R$3.000): "))
+    if valor <= 0 or valor > 3000 or valor % 10 != 0:
+        print("Valor inválido! O valor deve ser um múltiplo de R$10 e não pode exceder R$3.000.")
+        return
+    print(f"\nSaque solicitado: R${valor:.2f}")
+    print("Cédulas a serem entregues:")     
+    for cedula in cedulas:
+        quantidade = int(valor // cedula)
+        if quantidade > 0:
+            print(f"{quantidade} cédula(s) de R${cedula}")
+            valor -= quantidade * cedula
+        
+  
 
 
 # ==============================================================
@@ -333,8 +380,46 @@ def ex14_leitura_notas_turma():
     """
     notas = []
 
-    # SUA SOLUÇÃO AQUI
-    pass
+    while True:
+        # 1. Pede a entrada como texto (string) primeiro
+        entrada = input("Digite a nota do aluno (ou 'fim' para encerrar): ")
+
+        # 2. Verifica a condição de parada antes de converter para número
+        if entrada.lower() == 'fim':
+            print("Encerrando a leitura de notas...")
+            break
+        
+        # 3. Tenta converter a entrada para float (número decimal)
+        try:
+            nota = float(entrada)
+        except ValueError:
+            print("Entrada inválida! Digite um número ou a palavra 'fim'.")
+            continue # Volta para o início do loop
+
+        # 4. Verifica se a nota está no intervalo permitido
+        if nota < 0 or nota > 10: 
+            print("Nota inválida! A nota deve ser entre 0 e 10.")
+            continue
+        
+        # 5. Se passou por todas as verificações, adiciona à lista
+        notas.append(nota)
+        print("Nota válida! Adicionada à lista.\n")
+
+    # 6. Exibe o resumo final (apenas se pelo menos uma nota foi digitada)
+    if len(notas) > 0:
+        total = len(notas) # Quantidade de notas lidas
+        media = sum(notas) / total
+        maior_nota = max(notas)
+        menor_nota = min(notas) 
+        
+        print("\n--- Resumo da Turma ---")
+        print(f"Total de notas lidas: {total}")
+        print(f"Média da turma: {media:.2f}")
+        print(f"Maior nota: {maior_nota}")
+        print(f"Menor nota: {menor_nota}")
+    else:
+        print("\nNenhuma nota válida foi inserida.")
+
 
 
 # ==============================================================
@@ -365,8 +450,26 @@ def ex15_menu_sistema():
         print("[0] Sair")
         print("=" * 29)
 
-        # SUA SOLUÇÃO AQUI — leia a opção e implemente cada funcionalidade
-        pass
+        escolha = input("Escolha uma opção: ")
+        try:
+            opcao = int(escolha)    
+        except ValueError:
+            print("Entrada inválida! Por favor, digite um número correspondente às opções.")
+            continue
+        if opcao == 1:
+            ex01_classificador_temperatura()
+        elif opcao == 2:
+            ex11_numero_primo()
+        elif opcao == 3:
+            ex12_analisador_senha()
+        elif opcao == 4:
+            ex08_calculadora_segura()
+        elif opcao == 0:
+            print("Saindo do sistema. Até logo!")
+            break
+        else:
+            print("Opção inválida! Por favor, escolha uma opção do menu.")    
+            print("Sistema encerrado.")   
 
 
 # ==============================================================
@@ -388,10 +491,10 @@ if __name__ == "__main__":
     #ex06_filtro_continue()
     #ex07_validacao_nota()
     #ex08_calculadora_segura()
-    ex09_padrao_numerico()
-    # ex10_jogo_adivinhacao()
-    # ex11_numero_primo()
-    # ex12_analisador_senha()
-    # ex13_caixa_eletronico()
-    # ex14_leitura_notas_turma()
-    # ex15_menu_sistema()
+    #ex09_padrao_numerico()
+    #ex10_jogo_adivinhacao()
+    #ex11_numero_primo()
+    #ex12_analisador_senha()
+    #ex13_caixa_eletronico()
+    #ex14_leitura_notas_turma()
+    #ex15_menu_sistema()
